@@ -1,0 +1,196 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('yaaritrackerproject:server');
+var http = require('http');
+const PickupPoint = require('../routes/pickup.js'); 
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Socket.io setup
+ */
+var io = require('socket.io')(server);
+app.set('socketio', io); // make io accessible to our router
+
+//handling function request
+io.on("connection", function(socket){
+  //socket is a unique value for every user
+
+  //accepting the location sent by the front end
+  socket.on("student-location", function(coords){
+      //sending the location to everyone who's connected
+      //...coords sends everything that is received
+      io.emit("update-student-location",{//id: socket.id, 
+        ...coords});
+  });
+
+  //manages pickup points given by student
+  socket.on('student-pickup', async function(data){ 
+    const { username, latitude, longitude } = data;
+
+    try {
+        // Update or insert the pickup point in the database
+        const existingPoint = await PickupPoint.findOneAndUpdate(
+            { username },
+            { latitude, longitude },
+            { upsert: true, new: true }
+        );
+
+        // Emit updated pickup points to all clients (including drivers)
+        const allPoints = await PickupPoint.find({});
+        io.emit('new-pickup-point', allPoints);
+    } catch (error) {
+        console.error('Error updating pickup point:', error);
+        // Handle error response or logging as needed
+    }
+  });
+    // const { username, latitude, longitude } = data;
+
+    // //updating the pickup points of students to the database
+    // const existingPoint = await PickupPoint.findOne({ username });
+    // if (existingPoint) {
+    //     existingPoint.latitude = latitude;
+    //     existingPoint.longitude = longitude;
+    //     await existingPoint.save();
+    // } else {
+    //     const pickupPoint = new PickupPoint({ username, latitude, longitude });
+    //     await pickupPoint.save();
+    // }
+
+    // //broadcasting the pickup points to the drivers
+    // io.emit('new-pickup-point', data); 
+
+  socket.on("driver-location", function(coords){
+    //sending the location to everyone who's connected
+    //...coords sends everything that is receive
+    io.emit("update-driver-location",{id: socket.id, ...coords});
+});
+// // Listen for disconnect event
+// socket.on("disconnect", async function(username) {
+//   try {
+//     const deletedPoint = await PickupPoint.findOneAndDelete({ username });
+
+//     if (deletedPoint) {
+//       console.log(`Deleted pickup point for username: ${username}`);
+//       // Emit an event or send acknowledgment if needed
+//       // io.emit("pickup-point-deleted", { username });
+//     } else {
+//       console.log(`No pickup point found for username: ${username}`);
+//     }
+
+//   } catch (error) {
+//     console.error('Error deleting pickup point:', error);
+//   }
+// });
+//   // //when disconnected, the marker should disappear
+//   // socket.on("disconnected",async function(username){
+//   //     io.emit("user-disconnect",socket.id);
+//   // })
+// Listen for user disconnect event
+socket.on("user-disconnect", async function(username) {
+  try {
+      // Delete the pickup point associated with the username
+      const deletedPoint = await PickupPoint.findOneAndDelete({ username });
+
+      if (deletedPoint) {
+          console.log(`Deleted pickup point for username: ${username}`);
+          // Notify all drivers about the student disconnection
+          io.emit("pickup-point-deleted", { username });
+      } else {
+          console.log(`No pickup point found for username: ${username}`);
+      }
+
+  } catch (error) {
+      console.error('Error deleting pickup point:', error);
+  }
+});
+
+socket.on('disconnect', () => {
+  console.log('Client disconnected');
+});
+  console.log("connected");
+});
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}

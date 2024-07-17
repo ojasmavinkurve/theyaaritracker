@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/login.css">
+</head>
+<body>
+    <!-- logination form coding starts freom here -->
+<h1 class="login-title">Welcome</h1>
+<form action="/login" method="post" class="login">
+  <div class="login-switch">
+    <input type="radio" name="role" value="S" id="student" class="login-switch-input" checked>
+    <label for="student" class="login-switch-label">Student</label>
+    <input type="radio" name="role" value="D" id="driver" class="login-switch-input">
+    <label for="driver" class="login-switch-label">Driver</label>
+  </div>
+  <input name="username" type="text" class="login-input" placeholder="username" required>
+  <input name="password" type="password" class="login-input" placeholder="Password">
+  <input type="submit" value="Create Account" class="login-button">
+</form>
+<div class="about">
+  <p class="about-links">
+    <a href="http://www.agilewebsitedev.com" target="_blank" title="WordPress developer with strong skills in HTML and CSS">Agile Website Dev</a>
+    <a href="http://www.agileseo.net" target="_blank" title="SEO training in Chandigarh, Mohali and Panchkula">Agile SEO</a>
+  </p>
+  <p class="about-author">
+    &copy; 2013 <a href="https://palimadra.tumblr.com" target="_blank">Pali Madra</a> -
+    <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a><br>
+  </p>
+</div>
+</body>
+</html>

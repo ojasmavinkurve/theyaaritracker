@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/register.css">
+</head>
+<body>
+    <!-- registeration form coding starts freom here -->
+<h1 class="register-title">Welcome</h1>
+<form action="/register" method="post" class="register">
+  <div class="register-switch">
+    <input type="radio" name="role" value="S" id="student" class="register-switch-input" checked>
+    <label for="student" class="register-switch-label">Student</label>
+    <input type="radio" name="role" value="D" id="driver" class="register-switch-input">
+    <label for="driver" class="register-switch-label">Driver</label>
+  </div>
+  <input name="username" type="text" class="register-input" placeholder="username" required>
+  <input name="email" type="email" class="register-input" placeholder="Email address" required>
+  <input name="password" type="password" class="register-input" placeholder="Password">
+  <input type="submit" value="Create Account" class="register-button">
+</form>
+<div class="about">
+  <p class="about-links">
+    <a href="http://www.agilewebsitedev.com" target="_blank" title="WordPress developer with strong skills in HTML and CSS">Agile Website Dev</a>
+    <a href="http://www.agileseo.net" target="_blank" title="SEO training in Chandigarh, Mohali and Panchkula">Agile SEO</a>
+  </p>
+  <p class="about-author">
+    &copy; 2013 <a href="https://palimadra.tumblr.com" target="_blank">Pali Madra</a> -
+    <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a><br>
+  </p>
+</div>
+</body>
+</html>

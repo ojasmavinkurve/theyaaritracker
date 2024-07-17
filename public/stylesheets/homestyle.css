@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-image: url('/images/stacked-waves-haikei (1).svg');
+    height: 100vh;
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+a:hover {
+    color: orange;
+}
+
+header {
+    position: relative;
+    padding: 0 2rem;
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.links {
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar .toggle-button {
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.5rem;
+    display: none;
+}
+
+.action-button {
+    background-color: orange;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2s ease;
+}
+
+.action-button:hover {
+    scale: 1.05;
+    color: #fff;
+}
+
+.action-button:active {
+    scale: 0.95;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dropdown li {
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown .action-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown.open {
+    height: 240px;
+}
+
+#map{
+    height: 90%;
+    width:80%;
+    border: solid black 5px;
+
+}
+selection#hero{
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+#hero h1{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+@media(max-width:992px) {
+    .navbar .links,
+    .navbar .action-button {
+        display: none;
+    }
+
+    .navbar .toggle-button {
+        display: block;
+    }
+
+    .dropdown {
+        display: block;
+    }
+}
+
+@media(max-width : 576px){
+    .dropdown{
+        left: 2rem;
+        width: unset;
+
+    }
+}
