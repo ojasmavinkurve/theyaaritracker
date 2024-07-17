@@ -1,7 +1,7 @@
-const mongoose= require("mongoose");
+const mongoose= require("../dbsetup");
 const plm=require("passport-local-mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/yaariusers");
+//mongoose.connect("mongodb://127.0.0.1:27017/yaariusers");
 
 //creating schema
 const usersSchema = new mongoose.Schema({

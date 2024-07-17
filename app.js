@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressSession = require('express-session');
 const flash=require("connect-flash");
-
+//var mongoose = require('mongoose');
+var mongoose = require('./dbsetup');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -15,10 +16,10 @@ var app = express();
 //const __dirname=path.resolve();
 
 // MongoDB connection
-const mongoURI = 'mongodb+srv://ojamavinkurve:q8E0qOoKpNkI8V2m@cluster0.y924tv6.mongodb.net/theyaaritracker?retryWrites=true&w=majority&appName=Cluster0';
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+// const mongoURI = 'mongodb+srv://ojamavinkurve:q8E0qOoKpNkI8V2m@cluster0.y924tv6.mongodb.net/theyaaritracker?retryWrites=true&w=majority&appName=Cluster0';
+// mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log('MongoDB connected'))
+//   .catch(err => console.log(err));
 
 //setting ejs
 app.set('view engine', 'ejs');

@@ -52,8 +52,8 @@ router.get('/dashboard', isLoggedIn, async function(req, res){
 
       });
       console.log(user);
-      if(user.role=='S'){
-        res.render('home1',{user});
+      if(user.role=='P'){
+        res.render('student',{user});
       }
       else res.render('driver',{user});
       //{username: req.body.username});

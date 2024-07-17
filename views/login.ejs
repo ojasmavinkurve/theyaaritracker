@@ -101,14 +101,14 @@
             <form action="/register" method="post" class="login">
                 <h1>Create Account</h1>
                 <div class="toggle-container">
-                    <input type="radio" id="manual-signup" name="toggle-signup" class="toggle-input" checked>
+                    <input type="radio" id="manual-signup" name="role" class="toggle-input" value="P" checked>
                     <label for="manual-signup" class="toggle-option">Passenger</label>
-                    <input type="radio" id="auto-signup" name="toggle-signup" class="toggle-input">
+                    <input type="radio" id="auto-signup" value ="D" name="role" class="toggle-input">
                     <label for="auto-signup" class="toggle-option">Driver</label>
                 </div>
-                <p>Or use your email for registration</p>
+                <p>Use your institue email for registration</p>
                 <input type="username" name="username" placeholder="username" required="">
-                <input type="email" name="email" placeholder="Email" required="">
+                <input type="email" name="email" placeholder="@student.nitw.ac.in" required="">
                 <input type="password" name="password" placeholder="Password" required="">
                 <button>Sign Up</button>
             </form>
@@ -116,7 +116,7 @@
         <div class="sign-in">
             <form action="/login" method="post" class="login">
                 <h1>Log in</h1>
-                <p>Or use your email for registration</p>
+                <p>To get frequent Yaari updates</p>
                 <input type="username" name="username" placeholder="username" required="">
                 <input type="password" name="password" placeholder="Password" required="">
                 <a href="#">Forgot your Password?</a>
@@ -126,13 +126,14 @@
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>To keep connected with us login with your personal info</p>
+                    <h1>Hello!</h1>
+                    <p>Catch the next Yaari ASAP</p>
+                    
                     <button id="signIn">Sign In</button>
                 </div>
                 <div class="overlay-right">
-                    <h1>Hello!</h1>
-                    <p>Enter your name bla bla bla</p>
+                    <h1>Welcome Back!</h1>
+                    <p>Get to your class on time</p>
                     <button id="signUp">Sign Up</button>
                 </div>
             </div>
