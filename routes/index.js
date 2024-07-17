@@ -9,7 +9,7 @@ passport.use(new localStrategy(userModel.authenticate()));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('test1');
+  res.render('login');
 });
 
 // router.get('/logged', , function(req, res, next) {
@@ -36,7 +36,7 @@ router.post('/register', function(req,res){
 //login
 router.get('/login',function(req,res){
   console.log(req.flash("error"));
-  res.render("test1");
+  res.render("login");
 }); 
 
 router.post('/login',passport.authenticate("local", {
